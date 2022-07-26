@@ -31,5 +31,7 @@ public:
 
 private:
 
+	UPROPERTY(VisibleAnywhere)
+		class UCameraComponent* m_pCamera;
 	
 };

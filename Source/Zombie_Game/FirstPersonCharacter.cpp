@@ -3,9 +3,12 @@
 
 #include "FirstPersonCharacter.h"
 
+#include "Camera/CameraComponent.h"
+
 AFirstPersonCharacter::AFirstPersonCharacter()
 {
-
+	m_pCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	m_pCamera->AttachTo(RootComponent);
 }
 
 void AFirstPersonCharacter::BeginPlay()

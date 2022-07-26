@@ -4,6 +4,7 @@
 #include "FirstPersonCharacterController.h"
 #include "FirstPersonCharacter.h"
 
+
 AFirstPersonCharacterController::AFirstPersonCharacterController()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -26,6 +27,8 @@ void AFirstPersonCharacterController::Tick(float deltaTime)
 
 void AFirstPersonCharacterController::SetupInputComponent()
 {
+	Super::SetupInputComponent();
+
 	InputComponent->BindAxis("VerticalMove", this, &AFirstPersonCharacterController::VerticalMovement);
 	InputComponent->BindAxis("HorizontalMove", this, &AFirstPersonCharacterController::HorizontalMovement);
 }
