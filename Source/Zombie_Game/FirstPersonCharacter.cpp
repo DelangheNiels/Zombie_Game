@@ -2,6 +2,7 @@
 
 
 #include "FirstPersonCharacter.h"
+#include "Weapons/BasicGun.h"
 
 #include "Camera/CameraComponent.h"
 
@@ -14,6 +15,12 @@ AFirstPersonCharacter::AFirstPersonCharacter()
 void AFirstPersonCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	FVector location = FVector{0,0,0};
+	FRotator rotation = GetActorRotation();
+
+	m_pGun = GetWorld()->SpawnActor<ABasicGun>(m_StartGun,location, rotation);
+	m_pGun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, FName(TEXT("Palm_R")));
 }
 
 void AFirstPersonCharacter::Tick(float DeltaTime)

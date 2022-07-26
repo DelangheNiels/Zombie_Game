@@ -33,5 +33,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 		class UCameraComponent* m_pCamera;
-	
+
+	UPROPERTY()
+		class ABasicGun* m_pGun;
+
+	UPROPERTY(EditAnywhere, Category = "Gun Parameters")
+		TSubclassOf<ABasicGun> m_StartGun;
 };
