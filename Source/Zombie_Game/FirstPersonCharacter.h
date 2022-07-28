@@ -28,6 +28,8 @@ public:
 
 	void HorizontalMovement(float axisValue);
 	void VerticalMovement(float axisValue);
+	void MoveCameraUpDown(float axisValue);
+	void MoveCameraLeftRight(float axisValue);
 
 private:
 
@@ -39,4 +41,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Gun Parameters")
 		TSubclassOf<ABasicGun> m_StartGun;
+
+	UPROPERTY(EditAnywhere, Category = "Camera Movement")
+		float m_CameraRotationSpeed;
 };

@@ -33,5 +33,7 @@ private:
 
 	void HorizontalMovement(float axisValue);
 	void VerticalMovement(float axisValue);
+	void LookUpDown(float axisValue);
+	void LookLeftRight(float axisValue);
 	
 };

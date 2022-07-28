@@ -10,6 +10,8 @@ AFirstPersonCharacter::AFirstPersonCharacter()
 {
 	m_pCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	m_pCamera->AttachTo(RootComponent);
+
+	GetMesh()->AttachTo(m_pCamera);
 }
 
 void AFirstPersonCharacter::BeginPlay()
@@ -38,4 +40,16 @@ void AFirstPersonCharacter::VerticalMovement(float axisValue)
 {
 	if (axisValue)
 		AddMovementInput(GetActorForwardVector(), axisValue);
+}
+
+void AFirstPersonCharacter::MoveCameraUpDown(float axisValue)
+{
+	float clampedValue = FMath::Clamp<float>(axisValue, -m_CameraRotationSpeed, m_CameraRotationSpeed);
+	AddControllerPitchInput(clampedValue);
+}
+
+void AFirstPersonCharacter::MoveCameraLeftRight(float axisValue)
+{
+	float clampedValue = FMath::Clamp<float>(axisValue, -m_CameraRotationSpeed, m_CameraRotationSpeed);
+	AddControllerYawInput(clampedValue );
 }
