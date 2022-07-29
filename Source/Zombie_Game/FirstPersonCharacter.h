@@ -31,17 +31,26 @@ public:
 	void MoveCameraUpDown(float axisValue);
 	void MoveCameraLeftRight(float axisValue);
 
+	bool GetIsReloading() const;
+	void SetIsReloading(bool isReloading);
+
+	class ABasicGun& GetEquipedGun() const;
+
+	class UCameraComponent& GetCamera() const;
+
 private:
 
 	UPROPERTY(VisibleAnywhere)
-		class UCameraComponent* m_pCamera;
+		UCameraComponent* m_pCamera;
 
 	UPROPERTY()
-		class ABasicGun* m_pGun;
+		ABasicGun* m_pGun;
 
 	UPROPERTY(EditAnywhere, Category = "Gun Parameters")
 		TSubclassOf<ABasicGun> m_StartGun;
 
 	UPROPERTY(EditAnywhere, Category = "Camera Movement")
 		float m_CameraRotationSpeed;
+
+	bool m_IsReloading;
 };

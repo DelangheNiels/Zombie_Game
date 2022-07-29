@@ -22,6 +22,9 @@ protected:
 
 	virtual void BeginPlay() override;
 
+	virtual void ShootGun();
+	virtual void ReloadGun();
+
 public:
 
 	virtual void Tick(float deltaTime) override;

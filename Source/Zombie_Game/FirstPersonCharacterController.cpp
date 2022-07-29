@@ -3,6 +3,7 @@
 
 #include "FirstPersonCharacterController.h"
 #include "FirstPersonCharacter.h"
+#include "Weapons/BasicGun.h"
 
 
 AFirstPersonCharacterController::AFirstPersonCharacterController()
@@ -33,6 +34,9 @@ void AFirstPersonCharacterController::SetupInputComponent()
 	InputComponent->BindAxis("HorizontalMove", this, &AFirstPersonCharacterController::HorizontalMovement);
 	InputComponent->BindAxis("LookUpDown", this, &AFirstPersonCharacterController::LookUpDown);
 	InputComponent->BindAxis("LookLeftRight", this, &AFirstPersonCharacterController::LookLeftRight);
+
+	InputComponent->BindAction("Shoot", IE_Pressed, this,&AFirstPersonCharacterController::ShootGun);
+	InputComponent->BindAction("Reload", IE_Pressed, this, &AFirstPersonCharacterController::Reload);
 }
 
 void AFirstPersonCharacterController::HorizontalMovement(float axisValue)
@@ -57,4 +61,17 @@ void AFirstPersonCharacterController::LookLeftRight(float axisValue)
 {
 	if (m_pCharacter)
 		m_pCharacter->MoveCameraLeftRight(axisValue);
+}
+
+void AFirstPersonCharacterController::ShootGun()
+{
+	if (m_pCharacter)
+		m_pCharacter->GetEquipedGun().Fire();
+		
+}
+
+void AFirstPersonCharacterController::Reload()
+{
+	if (m_pCharacter)
+		m_pCharacter->GetEquipedGun().Reload();
 }

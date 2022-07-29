@@ -12,6 +12,8 @@ AFirstPersonCharacter::AFirstPersonCharacter()
 	m_pCamera->AttachTo(RootComponent);
 
 	GetMesh()->AttachTo(m_pCamera);
+
+	m_IsReloading = false;
 }
 
 void AFirstPersonCharacter::BeginPlay()
@@ -23,6 +25,7 @@ void AFirstPersonCharacter::BeginPlay()
 
 	m_pGun = GetWorld()->SpawnActor<ABasicGun>(m_StartGun,location, rotation);
 	m_pGun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, FName(TEXT("Palm_R")));
+	m_pGun->SetOwningPlayer(this);
 }
 
 void AFirstPersonCharacter::Tick(float DeltaTime)
@@ -52,4 +55,24 @@ void AFirstPersonCharacter::MoveCameraLeftRight(float axisValue)
 {
 	float clampedValue = FMath::Clamp<float>(axisValue, -m_CameraRotationSpeed, m_CameraRotationSpeed);
 	AddControllerYawInput(clampedValue );
+}
+
+bool AFirstPersonCharacter::GetIsReloading() const
+{
+	return m_IsReloading;
+}
+
+void AFirstPersonCharacter::SetIsReloading(bool isReloading)
+{
+	m_IsReloading = isReloading;
+}
+
+ABasicGun& AFirstPersonCharacter::GetEquipedGun() const
+{
+	return *m_pGun;
+}
+
+UCameraComponent& AFirstPersonCharacter::GetCamera() const
+{
+	return *m_pCamera;
 }

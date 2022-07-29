@@ -35,5 +35,8 @@ private:
 	void VerticalMovement(float axisValue);
 	void LookUpDown(float axisValue);
 	void LookLeftRight(float axisValue);
+
+	void ShootGun();
+	void Reload();
 	
 };
