@@ -9,6 +9,9 @@
 /**
  * 
  */
+
+class UPlayerHUD;
+
 UCLASS()
 class ZOMBIE_GAME_API AFirstPersonCharacterController : public APlayerController
 {
@@ -38,5 +41,11 @@ private:
 
 	void ShootGun();
 	void Reload();
+
+	UPROPERTY(EditAnywhere, Category = "HUD")
+		TSubclassOf<UUserWidget> m_UserWidget;
+
+	UPROPERTY()
+		UPlayerHUD* m_pPlayerHUD;
 	
 };

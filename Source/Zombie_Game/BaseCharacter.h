@@ -23,6 +23,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	float GetCurrentHealth() const;
+	float GetMaxHealth() const;
+	float GetHealthPercentage()const;
+
 protected:
 
 	UPROPERTY()

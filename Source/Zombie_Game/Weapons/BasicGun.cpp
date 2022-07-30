@@ -33,6 +33,16 @@ void ABasicGun::Reload()
 	ReloadGun();
 }
 
+int ABasicGun::GetCurrentAmmo() const
+{
+	return m_CurrentAmmo;
+}
+
+int ABasicGun::GetClipSize() const
+{
+	return m_ClipSize;
+}
+
 void ABasicGun::BeginPlay()
 {
 	Super::BeginPlay();

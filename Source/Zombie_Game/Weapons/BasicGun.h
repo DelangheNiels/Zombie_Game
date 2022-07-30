@@ -20,6 +20,9 @@ public:
 	void Fire();
 	void Reload();
 
+	int GetCurrentAmmo() const;
+	int GetClipSize() const;
+
 protected:
 	
 

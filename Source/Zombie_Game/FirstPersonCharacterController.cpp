@@ -4,6 +4,9 @@
 #include "FirstPersonCharacterController.h"
 #include "FirstPersonCharacter.h"
 #include "Weapons/BasicGun.h"
+#include "HUD/PlayerHUD.h"
+
+#include "Components/WidgetComponent.h"
 
 
 AFirstPersonCharacterController::AFirstPersonCharacterController()
@@ -19,6 +22,21 @@ void AFirstPersonCharacterController::BeginPlay()
 	bShowMouseCursor = false;
 
 	m_pCharacter = Cast<AFirstPersonCharacter>(GetPawn());
+
+	AttachToActor(m_pCharacter, FAttachmentTransformRules::KeepRelativeTransform);
+
+		auto widget = CreateWidget<UUserWidget, APlayerController>(this, m_UserWidget);
+
+	if (widget)
+	{
+		//GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, TEXT("hud works"));
+		m_pPlayerHUD = Cast<UPlayerHUD>(widget);
+		if (m_pPlayerHUD)
+		{
+			m_pPlayerHUD->SetPlayer(m_pCharacter);
+			m_pPlayerHUD->AddToViewport();
+		}
+	}
 }
 
 void AFirstPersonCharacterController::Tick(float deltaTime)
