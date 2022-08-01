@@ -23,6 +23,8 @@ public:
 	int GetCurrentAmmo() const;
 	int GetClipSize() const;
 
+	void StopShooting();
+
 protected:
 	
 
@@ -63,6 +65,8 @@ protected:
 
 	UPROPERTY()
 		UAnimSequence* m_pArmReloadAnimation;
+
+	bool m_IsShooting;
 
 
 	virtual void BeginPlay() override;

@@ -18,12 +18,14 @@ ABasicGun::ABasicGun()
 	m_pMuzzle->AttachToComponent(m_pGunMesh, FAttachmentTransformRules::KeepRelativeTransform);
 
 	m_ReloadTimer = 0.0f;
+	m_IsShooting = false;
 
 }
 
 
 void ABasicGun::Fire()
 {
+	m_IsShooting = true;
 	ShootGun();
 		
 }
@@ -41,6 +43,12 @@ int ABasicGun::GetCurrentAmmo() const
 int ABasicGun::GetClipSize() const
 {
 	return m_ClipSize;
+}
+
+
+void ABasicGun::StopShooting()
+{
+	m_IsShooting = false;
 }
 
 void ABasicGun::BeginPlay()

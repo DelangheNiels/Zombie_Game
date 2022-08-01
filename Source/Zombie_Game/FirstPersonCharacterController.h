@@ -41,6 +41,7 @@ private:
 
 	void ShootGun();
 	void Reload();
+	void StopShooting();
 
 	UPROPERTY(EditAnywhere, Category = "HUD")
 		TSubclassOf<UUserWidget> m_UserWidget;

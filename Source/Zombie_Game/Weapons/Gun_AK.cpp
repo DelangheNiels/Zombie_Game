@@ -43,6 +43,7 @@ AGun_AK::AGun_AK()
 		m_pArmReloadAnimation = armReloadAnim.Object;
 	}
 
+	m_FireTimer = 0;
 
 }
 
@@ -67,6 +68,15 @@ void AGun_AK::Tick(float deltaTime)
 			m_CurrentAmmo = m_ClipSize;
 		}
 	}
+
+	if (m_IsShooting)
+	{
+		m_FireTimer += deltaTime;
+		if (m_FireTimer >= m_FireRate)
+		{
+			ShootGun();
+		}
+	}
 }
 
 void AGun_AK::ShootGun()
@@ -75,12 +85,15 @@ void AGun_AK::ShootGun()
 
 	if (m_CurrentAmmo > 0 && !m_pOwner->GetIsReloading())
 	{
+		m_FireTimer = 0;
 		--m_CurrentAmmo;
 		m_pGunMesh->PlayAnimation(m_pFireAnimation, false);
 		m_pOwner->GetMesh()->PlayAnimation(m_pArmAnimation, false);
 
 		GetWorld()->SpawnActor<ABasicBullet>(m_BulletType, m_pMuzzle->GetComponentLocation(), m_pOwner->GetCamera().GetComponentRotation());
+		
 	}
+
 }
 
 void AGun_AK::ReloadGun()

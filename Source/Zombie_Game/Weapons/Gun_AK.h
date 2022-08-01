@@ -22,11 +22,15 @@ protected:
 
 	virtual void BeginPlay() override;
 
-	virtual void ShootGun();
-	virtual void ReloadGun();
+	virtual void ShootGun() override;
+	virtual void ReloadGun() override;
 
 public:
 
 	virtual void Tick(float deltaTime) override;
 	
+
+private:
+
+	float m_FireTimer;
 };

@@ -54,6 +54,7 @@ void AFirstPersonCharacterController::SetupInputComponent()
 	InputComponent->BindAxis("LookLeftRight", this, &AFirstPersonCharacterController::LookLeftRight);
 
 	InputComponent->BindAction("Shoot", IE_Pressed, this,&AFirstPersonCharacterController::ShootGun);
+	InputComponent->BindAction("Shoot", IE_Released, this, &AFirstPersonCharacterController::StopShooting);
 	InputComponent->BindAction("Reload", IE_Pressed, this, &AFirstPersonCharacterController::Reload);
 }
 
@@ -92,4 +93,10 @@ void AFirstPersonCharacterController::Reload()
 {
 	if (m_pCharacter)
 		m_pCharacter->GetEquipedGun().Reload();
+}
+
+void AFirstPersonCharacterController::StopShooting()
+{
+	if (m_pCharacter)
+		m_pCharacter->GetEquipedGun().StopShooting();
 }
