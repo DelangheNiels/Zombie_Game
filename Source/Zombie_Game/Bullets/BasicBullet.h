@@ -26,6 +26,9 @@ protected:
 	UPROPERTY()
 		class UProjectileMovementComponent* m_pProjectileMovementComp;
 
+	float m_TimeToDestroy{};
+	float m_DestroyTimer{};
+
 	virtual void BeginPlay() override;
 
 public:	

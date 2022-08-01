@@ -21,6 +21,10 @@ ABasicBullet::ABasicBullet()
 	m_pProjectileMovementComp->Bounciness = 0.0f;
 	m_pProjectileMovementComp->ProjectileGravityScale = 0.0f;
 
+	m_TimeToDestroy = 5.0f;
+	m_DestroyTimer = 0.0f;
+
+
 }
 
 // Called when the game starts or when spawned
@@ -34,6 +38,12 @@ void ABasicBullet::BeginPlay()
 void ABasicBullet::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	m_DestroyTimer += DeltaTime;
+	if (m_DestroyTimer > m_TimeToDestroy)
+	{
+		Destroy();
+	}
 
 }
 
