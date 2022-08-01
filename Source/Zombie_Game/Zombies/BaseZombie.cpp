@@ -3,3 +3,18 @@
 
 #include "BaseZombie.h"
 
+ABaseZombie::ABaseZombie()
+{
+
+}
+
+void ABaseZombie::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
+void ABaseZombie::Tick(float deltaTime)
+{
+	Super::Tick(deltaTime);
+}
+

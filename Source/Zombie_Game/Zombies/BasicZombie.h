@@ -3,25 +3,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "../BaseCharacter.h"
-#include "BaseZombie.generated.h"
+#include "BaseZombie.h"
+#include "BasicZombie.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class ZOMBIE_GAME_API ABaseZombie : public ABaseCharacter
+class ZOMBIE_GAME_API ABasicZombie : public ABaseZombie
 {
 	GENERATED_BODY()
 
 public:
 
-	ABaseZombie();
+	ABasicZombie();
 
 protected:
-
-	UPROPERTY(EditAnywhere, Category = "Zombie params")
-		float m_Damage;
 
 	virtual void BeginPlay() override;
 
