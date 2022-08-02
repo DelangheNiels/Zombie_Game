@@ -3,6 +3,8 @@
 
 #include "WanderZombie.h"
 
+#include "GameFramework/CharacterMovementComponent.h"
+
 AWanderZombie::AWanderZombie()
 {
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> zombieVisualAsset(TEXT("SkeletalMesh'/Game/Blueprints/Zombies/WanderZombie/Meshes/WanderZombie.WanderZombie'"));
@@ -15,6 +17,8 @@ AWanderZombie::AWanderZombie()
 void AWanderZombie::BeginPlay()
 {
 	Super::BeginPlay();
+
+	GetCharacterMovement()->MaxWalkSpeed = m_WalkSpeed;
 }
 
 void AWanderZombie::Tick(float deltaTime)

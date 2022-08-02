@@ -53,4 +53,6 @@ private:
 		float m_CameraRotationSpeed;
 
 	bool m_IsReloading;
+
+	class UAIPerceptionStimuliSourceComponent* m_pStimulusComponent;
 };

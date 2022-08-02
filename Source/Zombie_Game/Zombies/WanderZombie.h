@@ -25,5 +25,13 @@ protected:
 public:
 
 	virtual void Tick(float deltaTime) override;
+
+private:
+
+	UPROPERTY(EditAnywhere, Category = "Zombie params")
+		float m_WalkSpeed;
+
+	UPROPERTY(EditAnywhere, Category = "Zombie params")
+		float m_RunSpeed;
 	
 };

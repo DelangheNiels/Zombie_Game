@@ -6,6 +6,9 @@
 
 #include "Camera/CameraComponent.h"
 
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
+#include "Perception/AISense_Sight.h"
+
 AFirstPersonCharacter::AFirstPersonCharacter()
 {
 	m_pCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
@@ -14,6 +17,11 @@ AFirstPersonCharacter::AFirstPersonCharacter()
 	GetMesh()->AttachTo(m_pCamera);
 
 	m_IsReloading = false;
+
+	//Create Stimulus comp
+	m_pStimulusComponent = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>(TEXT("Perception Stimulus Source Component"));
+	m_pStimulusComponent->RegisterForSense(TSubclassOf<UAISense_Sight>());
+	m_pStimulusComponent->RegisterWithPerceptionSystem();
 }
 
 void AFirstPersonCharacter::BeginPlay()
