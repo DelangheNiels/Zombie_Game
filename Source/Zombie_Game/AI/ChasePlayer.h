@@ -4,26 +4,21 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/Tasks/BTTask_BlackboardBase.h"
-#include "FindRandomLocation.generated.h"
+#include "ChasePlayer.generated.h"
 
 /**
  * 
  */
 UCLASS(Blueprintable)
-class ZOMBIE_GAME_API UFindRandomLocation : public UBTTask_BlackboardBase
+class ZOMBIE_GAME_API UChasePlayer : public UBTTask_BlackboardBase
 {
 	GENERATED_BODY()
-
+	
 public:
-	UFindRandomLocation(const FObjectInitializer& objectInitializer);
+	UChasePlayer(const FObjectInitializer& objectInitializer);
 
 protected:
 
 public:
 	EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& ownerComp, uint8* nodeMemory) override;
-
-private:
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Search", meta = (AllowPrivateAccess = "true"))
-		float m_SearchRadius = 500.0f;
 };
