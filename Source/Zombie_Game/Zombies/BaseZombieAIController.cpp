@@ -19,10 +19,6 @@
 
 ABaseZombieAIController::ABaseZombieAIController(const FObjectInitializer& objectInitializer)
 {
-	static ConstructorHelpers::FObjectFinder<UBehaviorTree> bTree(TEXT("BehaviorTree'/Game/Blueprints/Zombies/WanderZombie/AI/BT_WanderZombie.BT_WanderZombie'"));
-	if (bTree.Succeeded())
-		m_pBehaviorTree = bTree.Object;
-
 	m_pBehaviorTreeComponent = objectInitializer.CreateDefaultSubobject<UBehaviorTreeComponent>(this, TEXT("BehaviorTreeComponent"));
 	
 	m_pBlackboardComponent = objectInitializer.CreateDefaultSubobject<UBlackboardComponent>(this, TEXT("BlackboardComponent"));
@@ -63,13 +59,7 @@ void ABaseZombieAIController::SetupSightPerceptionParameters()
 	m_pSightConfig->PeripheralVisionAngleDegrees = m_SightAngle;
 	m_pSightConfig->SetMaxAge(m_MaxAge);
 	m_pSightConfig->AutoSuccessRangeFromLastSeenLocation = m_SightSuccessRange;
-	m_pSightConfig->DetectionByAffiliation.bDetectEnemies = true;
-	m_pSightConfig->DetectionByAffiliation.bDetectFriendlies = true;
-	m_pSightConfig->DetectionByAffiliation.bDetectNeutrals = true;
-
-	GetPerceptionComponent()->SetDominantSense(m_pSightConfig->GetSenseImplementation());
-	GetPerceptionComponent()->OnTargetPerceptionUpdated.AddDynamic(this, &ABaseZombieAIController::OnFPCharDetected);
-	GetPerceptionComponent()->ConfigureSense(*m_pSightConfig);
+	
 }
 
 void ABaseZombieAIController::OnFPCharDetected(AActor* actor, FAIStimulus stimulus)
@@ -84,4 +74,17 @@ void ABaseZombieAIController::SetupPerceptionSystem()
 {
 	m_pSightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight Config"));
 	SetPerceptionComponent(*CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception Component")));
+
+	m_pSightConfig->SightRadius = 1500;
+	m_pSightConfig->LoseSightRadius = 2000;
+	m_pSightConfig->PeripheralVisionAngleDegrees = 100;
+	m_pSightConfig->SetMaxAge(5);
+	m_pSightConfig->AutoSuccessRangeFromLastSeenLocation = 300;
+	m_pSightConfig->DetectionByAffiliation.bDetectEnemies = true;
+	m_pSightConfig->DetectionByAffiliation.bDetectFriendlies = true;
+	m_pSightConfig->DetectionByAffiliation.bDetectNeutrals = true;
+
+	GetPerceptionComponent()->SetDominantSense(m_pSightConfig->GetSenseImplementation());
+	GetPerceptionComponent()->OnTargetPerceptionUpdated.AddDynamic(this, &ABaseZombieAIController::OnFPCharDetected);
+	GetPerceptionComponent()->ConfigureSense(*m_pSightConfig);
 }

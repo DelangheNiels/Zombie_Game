@@ -26,17 +26,25 @@ public:
 
 protected:
 
+	virtual void OnPossess(APawn* pawn) override;
+
+public:
+
+	virtual void BeginPlay() override;
+
+	UBlackboardComponent* GetBlackboard() const;
+
+private:
+
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "AI", meta = (AllowPrivateAccess = "true"))
 		class UBehaviorTreeComponent* m_pBehaviorTreeComponent;
 
-	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "AI", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI", meta = (AllowPrivateAccess = "true"))
 		class UBehaviorTree* m_pBehaviorTree;
 
 	UBlackboardComponent* m_pBlackboardComponent;
 
 	class UAISenseConfig_Sight* m_pSightConfig;
-
-	void SetupSightPerceptionParameters();
 
 	UPROPERTY(EditAnywhere, Category = "Sight Perception")
 		float m_SightRadius;
@@ -53,20 +61,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Sight Perception")
 		float m_SightSuccessRange;
 
+	void SetupSightPerceptionParameters();
+
 	UFUNCTION()
 		void OnFPCharDetected(AActor* actor, FAIStimulus stimulus);
 
 	void SetupPerceptionSystem();
 
-	virtual void OnPossess(APawn* pawn) override;
-
-public:
-
-	virtual void BeginPlay() override;
-
-	UBlackboardComponent* GetBlackboard() const;
-
-private:
-
-	
 };
