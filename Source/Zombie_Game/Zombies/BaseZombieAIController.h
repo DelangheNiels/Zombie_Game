@@ -36,25 +36,8 @@ protected:
 
 	class UAISenseConfig_Sight* m_pSightConfig;
 
-	UFUNCTION()
-		void OnPlayerDetected(AActor* actor, FAIStimulus stimulus);
-
-	void SetupPerceptionSystem();
-
-	virtual void OnPossess(APawn* pawn) override;
-
-	virtual void Tick(float deltaTime) override;
-
-public:
-
-	virtual void BeginPlay() override;
-
-	UBlackboardComponent* GetBlackboard() const;
-
-private:
-
 	void SetupSightPerceptionParameters();
-	
+
 	UPROPERTY(EditAnywhere, Category = "Sight Perception")
 		float m_SightRadius;
 
@@ -69,5 +52,21 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Sight Perception")
 		float m_SightSuccessRange;
+
+	UFUNCTION()
+		void OnFPCharDetected(AActor* actor, FAIStimulus stimulus);
+
+	void SetupPerceptionSystem();
+
+	virtual void OnPossess(APawn* pawn) override;
+
+public:
+
+	virtual void BeginPlay() override;
+
+	UBlackboardComponent* GetBlackboard() const;
+
+private:
+
 	
 };

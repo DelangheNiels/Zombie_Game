@@ -34,16 +34,12 @@ ABaseZombieAIController::ABaseZombieAIController(const FObjectInitializer& objec
 void ABaseZombieAIController::OnPossess(APawn* pawn)
 {
 	Super::OnPossess(pawn);
+	bStartAILogicOnPossess = true;
 
 	if (m_pBlackboardComponent)
 	{
 		m_pBlackboardComponent->InitializeBlackboard(*m_pBehaviorTree->BlackboardAsset);
 	}
-}
-
-void ABaseZombieAIController::Tick(float deltaTime)
-{
-	Super::Tick(deltaTime);
 }
 
 void ABaseZombieAIController::BeginPlay()
@@ -70,9 +66,13 @@ void ABaseZombieAIController::SetupSightPerceptionParameters()
 	m_pSightConfig->DetectionByAffiliation.bDetectEnemies = true;
 	m_pSightConfig->DetectionByAffiliation.bDetectFriendlies = true;
 	m_pSightConfig->DetectionByAffiliation.bDetectNeutrals = true;
+
+	GetPerceptionComponent()->SetDominantSense(m_pSightConfig->GetSenseImplementation());
+	GetPerceptionComponent()->OnTargetPerceptionUpdated.AddDynamic(this, &ABaseZombieAIController::OnFPCharDetected);
+	GetPerceptionComponent()->ConfigureSense(*m_pSightConfig);
 }
 
-void ABaseZombieAIController::OnPlayerDetected(AActor* actor, FAIStimulus stimulus)
+void ABaseZombieAIController::OnFPCharDetected(AActor* actor, FAIStimulus stimulus)
 {
 	if (AFirstPersonCharacter* player = Cast<AFirstPersonCharacter>(actor))
 	{
@@ -84,8 +84,4 @@ void ABaseZombieAIController::SetupPerceptionSystem()
 {
 	m_pSightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight Config"));
 	SetPerceptionComponent(*CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception Component")));
-
-	GetPerceptionComponent()->SetDominantSense(m_pSightConfig->GetSenseImplementation());
-	GetPerceptionComponent()->OnTargetPerceptionUpdated.AddDynamic(this, &ABaseZombieAIController::OnPlayerDetected);
-	GetPerceptionComponent()->ConfigureSense(*m_pSightConfig);
 }
