@@ -48,6 +48,8 @@ private:
 
 	class UAISenseConfig_Sight* m_pSightConfig;
 
+	class UAISenseConfig_Hearing* m_pHearingConfig;
+
 	UPROPERTY(EditAnywhere, Category = "Sight Perception")
 		float m_SightRadius;
 
@@ -67,6 +69,9 @@ private:
 
 	UFUNCTION()
 		void OnFPCharDetected(AActor* actor, FAIStimulus stimulus);
+
+	UFUNCTION()
+		void OnSoundSenseUpdate(const TArray<AActor*>& actors);
 
 	void SetupPerceptionSystem();
 

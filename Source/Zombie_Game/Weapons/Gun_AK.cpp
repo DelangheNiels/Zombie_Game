@@ -11,6 +11,8 @@
 
 #include "Kismet/GameplayStatics.h"
 
+#include "Perception/AISense_Hearing.h"
+
 
 AGun_AK::AGun_AK()
 {
@@ -95,6 +97,7 @@ void AGun_AK::ShootGun()
 		GetWorld()->SpawnActor<ABasicBullet>(m_BulletType, m_pMuzzle->GetComponentLocation(), m_pOwner->GetCamera().GetComponentRotation());
 
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), m_pFireSound, m_pMuzzle->GetComponentLocation());
+		UAISense_Hearing::ReportNoiseEvent(GetWorld(), m_pMuzzle->GetComponentLocation(), 1, this, m_GunShotSoundRange,"Sound");
 		
 	}
 

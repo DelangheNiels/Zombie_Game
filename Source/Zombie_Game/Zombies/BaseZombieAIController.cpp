@@ -10,6 +10,9 @@
 #include "Perception/AISenseConfig_Sight.h"
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
 #include "Perception/AIPerceptionComponent.h"
+#include "Perception/AISenseConfig_Hearing.h"
+
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 #include "../AI/BlackboardKeys.h"
 
@@ -64,6 +67,8 @@ void ABaseZombieAIController::SetupSightPerceptionParameters()
 	m_pSightConfig->PeripheralVisionAngleDegrees = m_SightAngle;
 	m_pSightConfig->SetMaxAge(m_MaxAge);
 	m_pSightConfig->AutoSuccessRangeFromLastSeenLocation = m_SightSuccessRange;
+
+	//m_pHearingConfig->HearingRange = 3000;
 	
 }
 
@@ -80,21 +85,58 @@ void ABaseZombieAIController::OnFPCharDetected(AActor* actor, FAIStimulus stimul
 	}
 }
 
+void ABaseZombieAIController::OnSoundSenseUpdate(const TArray<AActor*>& actors)
+{
+	for (size_t i = 0; i < actors.Num(); i++)
+	{
+		FActorPerceptionBlueprintInfo info;
+		GetPerceptionComponent()->GetActorsPerception(actors[i], info);
+
+		for (size_t j = 0; j < info.LastSensedStimuli.Num(); j++)
+		{
+			FAIStimulus stimulus = info.LastSensedStimuli[j];
+			if (stimulus.Tag == "Sound")
+			{
+				GetBlackboardComponent()->SetValueAsBool(blackboardKeys::heardSound, true);
+				GetBlackboardComponent()->SetValueAsVector(blackboardKeys::targetLocation, stimulus.StimulusLocation);
+			}
+
+			else
+			{
+				GetBlackboardComponent()->SetValueAsBool(blackboardKeys::canSeePlayer, stimulus.WasSuccessfullySensed());
+				
+			}
+		}
+	}
+}
+
 void ABaseZombieAIController::SetupPerceptionSystem()
 {
-	m_pSightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight Config"));
+
 	SetPerceptionComponent(*CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception Component")));
 
-	m_pSightConfig->SightRadius = 1500;
-	m_pSightConfig->LoseSightRadius = 2000;
+	//Sound
+	m_pHearingConfig = CreateDefaultSubobject<UAISenseConfig_Hearing>(TEXT("Hearing Config"));
+
+	m_pHearingConfig->HearingRange = 3000;
+	m_pHearingConfig->DetectionByAffiliation.bDetectEnemies = true;
+	m_pHearingConfig->DetectionByAffiliation.bDetectFriendlies = true;
+	m_pHearingConfig->DetectionByAffiliation.bDetectNeutrals = true;
+	GetPerceptionComponent()->OnPerceptionUpdated.AddDynamic(this, &ABaseZombieAIController::OnSoundSenseUpdate);
+	GetPerceptionComponent()->ConfigureSense(*m_pHearingConfig);
+
+	//Sight
+	m_pSightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight Config"));
+	m_pSightConfig->SightRadius = 1000;
+	m_pSightConfig->LoseSightRadius = 1300;
 	m_pSightConfig->PeripheralVisionAngleDegrees = 100;
 	m_pSightConfig->SetMaxAge(5);
 	m_pSightConfig->AutoSuccessRangeFromLastSeenLocation = 300;
 	m_pSightConfig->DetectionByAffiliation.bDetectEnemies = true;
 	m_pSightConfig->DetectionByAffiliation.bDetectFriendlies = true;
 	m_pSightConfig->DetectionByAffiliation.bDetectNeutrals = true;
-
 	GetPerceptionComponent()->SetDominantSense(m_pSightConfig->GetSenseImplementation());
 	GetPerceptionComponent()->OnTargetPerceptionUpdated.AddDynamic(this, &ABaseZombieAIController::OnFPCharDetected);
 	GetPerceptionComponent()->ConfigureSense(*m_pSightConfig);
+
 }

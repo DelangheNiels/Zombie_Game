@@ -72,6 +72,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Gun Parameters")
 		USoundBase* m_pFireSound;
 
+	UPROPERTY(EditAnywhere, Category = "Gun Parameters")
+		float m_GunShotSoundRange;
+
 
 	virtual void BeginPlay() override;
 
