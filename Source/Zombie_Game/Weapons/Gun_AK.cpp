@@ -9,6 +9,8 @@
 
 #include "Camera/CameraComponent.h"
 
+#include "Kismet/GameplayStatics.h"
+
 
 AGun_AK::AGun_AK()
 {
@@ -91,6 +93,8 @@ void AGun_AK::ShootGun()
 		m_pOwner->GetMesh()->PlayAnimation(m_pArmAnimation, false);
 
 		GetWorld()->SpawnActor<ABasicBullet>(m_BulletType, m_pMuzzle->GetComponentLocation(), m_pOwner->GetCamera().GetComponentRotation());
+
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), m_pFireSound, m_pMuzzle->GetComponentLocation());
 		
 	}
 
@@ -104,5 +108,6 @@ void AGun_AK::ReloadGun()
 
 		m_pGunMesh->PlayAnimation(m_pGunReloadAnimation, false);
 		m_pOwner->GetMesh()->PlayAnimation(m_pArmReloadAnimation, false);
+
 	}
 }

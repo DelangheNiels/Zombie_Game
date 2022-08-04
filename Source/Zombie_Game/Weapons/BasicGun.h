@@ -7,6 +7,7 @@
 #include "BasicGun.generated.h"
 
 class ABasicBullet;
+class USoundBase;
 
 UCLASS()
 class ZOMBIE_GAME_API ABasicGun : public AActor
@@ -67,6 +68,9 @@ protected:
 		UAnimSequence* m_pArmReloadAnimation;
 
 	bool m_IsShooting;
+
+	UPROPERTY(EditAnywhere, Category = "Gun Parameters")
+		USoundBase* m_pFireSound;
 
 
 	virtual void BeginPlay() override;

@@ -31,7 +31,9 @@ public:
 	void MoveCameraUpDown(float axisValue);
 	void MoveCameraLeftRight(float axisValue);
 
-	bool GetIsReloading() const;
+	UFUNCTION(BlueprintCallable)
+		bool GetIsReloading() const;
+
 	void SetIsReloading(bool isReloading);
 
 	class ABasicGun& GetEquipedGun() const;
