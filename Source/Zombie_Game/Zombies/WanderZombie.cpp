@@ -17,11 +17,33 @@ AWanderZombie::AWanderZombie()
 void AWanderZombie::BeginPlay()
 {
 	Super::BeginPlay();
+}
 
-	GetCharacterMovement()->MaxWalkSpeed = m_WalkSpeed;
+float AWanderZombie::GetRunSpeed() const
+{
+	return m_RunSpeed;
 }
 
 void AWanderZombie::Tick(float deltaTime)
 {
 	Super::Tick(deltaTime);
+
+	if (m_CurrentHealth >= 0)
+	{
+		if (m_CanSeePlayer && GetCharacterMovement()->MaxWalkSpeed != m_RunSpeed)
+		{
+			GetCharacterMovement()->MaxWalkSpeed = m_RunSpeed;
+		}
+
+		if (!m_CanSeePlayer && GetCharacterMovement()->MaxWalkSpeed == m_RunSpeed)
+		{
+			GetCharacterMovement()->MaxWalkSpeed = m_WalkSpeed;
+		}
+	}
+
+	else
+	{
+		GetCharacterMovement()->MaxWalkSpeed = 0;
+	}
+
 }

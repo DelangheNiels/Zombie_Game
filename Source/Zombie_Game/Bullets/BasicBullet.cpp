@@ -3,7 +3,11 @@
 
 #include "BasicBullet.h"
 
+#include "../Zombies/BaseZombie.h"
+
 #include "GameFramework/ProjectileMovementComponent.h"
+
+#include "Components/SphereComponent.h"
 
 // Sets default values
 ABasicBullet::ABasicBullet()
@@ -24,6 +28,10 @@ ABasicBullet::ABasicBullet()
 	m_TimeToDestroy = 5.0f;
 	m_DestroyTimer = 0.0f;
 
+	m_pSphereCollision = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere Collision"));
+	m_pSphereCollision->SetCollisionProfileName("Trigger");
+	m_pSphereCollision->AttachToComponent(m_pStaticMesh, FAttachmentTransformRules::KeepRelativeTransform);
+
 
 }
 
@@ -32,6 +40,8 @@ void ABasicBullet::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (m_pSphereCollision)
+		m_pSphereCollision->OnComponentBeginOverlap.AddDynamic(this, &ABasicBullet::OnOverlapBegin);
 }
 
 // Called every frame
@@ -50,5 +60,15 @@ void ABasicBullet::Tick(float DeltaTime)
 float ABasicBullet::GetDamage() const
 {
 	return m_Damage;
+}
+
+void ABasicBullet::OnOverlapBegin(UPrimitiveComponent* overlappedComponent, AActor* otherActor, UPrimitiveComponent* otherComp, int32 otherBodyIndex, bool bFromSweep, const FHitResult& sweepResult)
+{
+	if (ABaseZombie* zombie = Cast<ABaseZombie>(otherActor))
+	{
+		zombie->Damage(m_Damage);
+		Destroy();
+	}
+
 }
 

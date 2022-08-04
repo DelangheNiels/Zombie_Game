@@ -34,6 +34,8 @@ public:
 
 	UBlackboardComponent* GetBlackboard() const;
 
+	void StopBehavior();
+
 private:
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category = "AI", meta = (AllowPrivateAccess = "true"))

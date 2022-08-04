@@ -23,7 +23,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	float GetCurrentHealth() const;
+	UFUNCTION(BlueprintCallable)
+		float GetCurrentHealth() const;
 	float GetMaxHealth() const;
 	float GetHealthPercentage()const;
 
@@ -33,7 +34,7 @@ protected:
 		float m_CurrentHealth;
 
 	UPROPERTY(EditAnywhere, Category = "Player Health")
-		float m_MaxHealth;
+		float m_MaxHealth = 100;
 
 private:
 

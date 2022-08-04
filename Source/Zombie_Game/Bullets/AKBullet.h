@@ -17,5 +17,13 @@ class ZOMBIE_GAME_API AAKBullet : public ABasicBullet
 public:
 
 	AAKBullet();
+
+protected:
+
+	virtual void BeginPlay() override;
+
+public:
 	
+	virtual void Tick(float deltaTime) override;
+
 };

@@ -52,6 +52,11 @@ UBlackboardComponent* ABaseZombieAIController::GetBlackboard() const
 	return m_pBlackboardComponent;
 }
 
+void ABaseZombieAIController::StopBehavior()
+{
+	BrainComponent->StopLogic("Dead");
+}
+
 void ABaseZombieAIController::SetupSightPerceptionParameters()
 {
 	m_pSightConfig->SightRadius = m_SightRadius;
@@ -67,6 +72,11 @@ void ABaseZombieAIController::OnFPCharDetected(AActor* actor, FAIStimulus stimul
 	if (AFirstPersonCharacter* player = Cast<AFirstPersonCharacter>(actor))
 	{
 		m_pBlackboardComponent->SetValueAsBool(blackboardKeys::canSeePlayer, stimulus.WasSuccessfullySensed());
+
+		if (auto pawn = Cast<ABaseZombie>(GetPawn()))
+		{
+			pawn->HasSeenPlayer(stimulus.WasSuccessfullySensed());
+		}
 	}
 }
 

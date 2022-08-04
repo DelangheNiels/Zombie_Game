@@ -23,10 +23,28 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Zombie params")
 		float m_Damage;
 
+	UPROPERTY(EditAnywhere, Category = "Zombie params")
+		float m_WalkSpeed;
+
+	bool m_CanSeePlayer;
+
 	virtual void BeginPlay() override;
 
 public:
 
 	virtual void Tick(float deltaTime) override;
+
+	void Damage(float damage);
+
+	UFUNCTION(BlueprintCallable)
+		float GetWalkSpeed() const;
+
+	void HasSeenPlayer(bool hasSeenPlayer);
+
+	UFUNCTION(BlueprintCallable)
+		bool GetCanSeenPlayer() const;
+
+private:
+
 	
 };

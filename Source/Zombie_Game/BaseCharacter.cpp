@@ -3,12 +3,12 @@
 
 #include "BaseCharacter.h"
 
-// Sets default values
 ABaseCharacter::ABaseCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	//need to set this here, otherwise death anim starts playing when game starts
+	m_CurrentHealth = m_MaxHealth;
 }
 
 // Called when the game starts or when spawned
@@ -17,7 +17,6 @@ void ABaseCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	m_CurrentHealth = m_MaxHealth;
-	
 }
 
 // Called every frame

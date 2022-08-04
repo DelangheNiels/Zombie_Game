@@ -37,5 +37,13 @@ public:
 
 	float GetDamage() const;
 
+private:
+
+	UPROPERTY()
+	class USphereComponent* m_pSphereCollision;
+
+	UFUNCTION()
+		void OnOverlapBegin(UPrimitiveComponent* overlappedComponent, AActor* otherActor, UPrimitiveComponent* otherComp, int32 otherBodyIndex, bool bFromSweep, const FHitResult& sweepResult);
+
 
 };
