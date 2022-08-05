@@ -9,6 +9,9 @@
 /**
  * 
  */
+
+class UBoxComponent;
+
 UCLASS()
 class ZOMBIE_GAME_API AWanderZombie : public ABaseZombie
 {

@@ -9,6 +9,9 @@
 /**
  * 
  */
+
+class AFirstPersonCharacterController;
+
 UCLASS()
 class ZOMBIE_GAME_API AFirstPersonCharacter : public ABaseCharacter
 {
@@ -21,6 +24,8 @@ public:
 protected:
 	
 	virtual void BeginPlay() override;
+
+	virtual void TookDamage(float damage) override;
 
 public:
 	
@@ -57,4 +62,7 @@ private:
 	bool m_IsReloading;
 
 	class UAIPerceptionStimuliSourceComponent* m_pStimulusComponent;
+
+	UPROPERTY()
+	AFirstPersonCharacterController* m_pController;
 };

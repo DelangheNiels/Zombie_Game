@@ -41,3 +41,13 @@ float ABaseCharacter::GetHealthPercentage() const
 	return m_CurrentHealth / m_MaxHealth;
 }
 
+void ABaseCharacter::Damage(float damage)
+{
+	TookDamage(damage);
+}
+
+void ABaseCharacter::TookDamage(float damage)
+{
+	m_CurrentHealth -= damage;
+}
+

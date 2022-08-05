@@ -2,12 +2,16 @@
 
 
 #include "FirstPersonCharacter.h"
+#include "FirstPersonCharacterController.h"
+
 #include "Weapons/BasicGun.h"
 
 #include "Camera/CameraComponent.h"
 
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
 #include "Perception/AISense_Sight.h"
+
+#include "Kismet/KismetSystemLibrary.h"
 
 AFirstPersonCharacter::AFirstPersonCharacter()
 {
@@ -34,6 +38,19 @@ void AFirstPersonCharacter::BeginPlay()
 	m_pGun = GetWorld()->SpawnActor<ABasicGun>(m_StartGun,location, rotation);
 	m_pGun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, FName(TEXT("Palm_R")));
 	m_pGun->SetOwningPlayer(this);
+
+	m_pController = Cast<AFirstPersonCharacterController>(GetController());
+}
+
+void AFirstPersonCharacter::TookDamage(float damage)
+{
+	Super::TookDamage(damage);
+
+	if (m_CurrentHealth <= 0)
+	{
+		if (m_pController)
+			UKismetSystemLibrary::QuitGame(GetWorld(), m_pController,EQuitPreference::Quit,true);
+	}
 }
 
 void AFirstPersonCharacter::Tick(float DeltaTime)

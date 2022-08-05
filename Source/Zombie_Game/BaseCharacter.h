@@ -28,6 +28,8 @@ public:
 	float GetMaxHealth() const;
 	float GetHealthPercentage()const;
 
+	void Damage(float damage);
+
 protected:
 
 	UPROPERTY()
@@ -35,6 +37,8 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Player Health")
 		float m_MaxHealth = 100;
+
+	virtual void TookDamage(float damage);
 
 private:
 

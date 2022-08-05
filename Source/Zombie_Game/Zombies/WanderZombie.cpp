@@ -5,6 +5,8 @@
 
 #include "GameFramework/CharacterMovementComponent.h"
 
+#include "Components/BoxComponent.h"
+
 AWanderZombie::AWanderZombie()
 {
 	static ConstructorHelpers::FObjectFinder<USkeletalMesh> zombieVisualAsset(TEXT("SkeletalMesh'/Game/Blueprints/Zombies/WanderZombie/Meshes/WanderZombie.WanderZombie'"));
@@ -17,6 +19,7 @@ AWanderZombie::AWanderZombie()
 void AWanderZombie::BeginPlay()
 {
 	Super::BeginPlay();
+
 }
 
 float AWanderZombie::GetRunSpeed() const
@@ -32,16 +35,23 @@ void AWanderZombie::Tick(float deltaTime)
 	{
 		if (m_CanSeePlayer && GetCharacterMovement()->MaxWalkSpeed != m_RunSpeed)
 		{
-			GetCharacterMovement()->MaxWalkSpeed = m_RunSpeed;
+			m_CurrentMovementSpeed = m_RunSpeed;
+			GetCharacterMovement()->MaxWalkSpeed = m_CurrentMovementSpeed;
 		}
 
 		if (!m_CanSeePlayer && GetCharacterMovement()->MaxWalkSpeed == m_RunSpeed)
 		{
-			GetCharacterMovement()->MaxWalkSpeed = m_WalkSpeed;
+			m_CurrentMovementSpeed = m_WalkSpeed;
+			GetCharacterMovement()->MaxWalkSpeed = m_CurrentMovementSpeed;
 		}
 	}
 
 	else
+	{
+		GetCharacterMovement()->MaxWalkSpeed = 0;
+	}
+
+	if (m_IsAttacking)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = 0;
 	}

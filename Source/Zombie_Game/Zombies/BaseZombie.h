@@ -9,6 +9,9 @@
 /**
  * 
  */
+
+class UBoxComponent;
+
 UCLASS()
 class ZOMBIE_GAME_API ABaseZombie : public ABaseCharacter
 {
@@ -23,18 +26,25 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Zombie params")
 		float m_Damage;
 
+	float m_CurrentMovementSpeed;
+
 	UPROPERTY(EditAnywhere, Category = "Zombie params")
 		float m_WalkSpeed;
 
 	bool m_CanSeePlayer;
+
+	bool m_IsAttacking;
+
+	bool m_IsInRange;
+
+	UPROPERTY()
+		UBoxComponent* m_pRightHandCollision;
 
 	virtual void BeginPlay() override;
 
 public:
 
 	virtual void Tick(float deltaTime) override;
-
-	void Damage(float damage);
 
 	UFUNCTION(BlueprintCallable)
 		float GetWalkSpeed() const;
@@ -44,7 +54,19 @@ public:
 	UFUNCTION(BlueprintCallable)
 		bool GetCanSeenPlayer() const;
 
+	void PlayAttackMontage();
+
+	UFUNCTION(BlueprintCallable)
+		bool GetIsAttacking() const;
+
+	UFUNCTION(BlueprintCallable)
+		void StopAttacking();
+
 private:
 
+	void SetRightHandCollision();
+
+	UFUNCTION()
+		void OnRightHandOverlapBegin(UPrimitiveComponent* overlappedComponent, AActor* otherActor, UPrimitiveComponent* otherComp, int32 otherBodyIndex, bool bFromSweep, const FHitResult& sweepResult);
 	
 };
