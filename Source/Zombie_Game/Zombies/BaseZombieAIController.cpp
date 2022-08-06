@@ -112,6 +112,7 @@ void ABaseZombieAIController::OnSoundSenseUpdate(const TArray<AActor*>& actors)
 
 void ABaseZombieAIController::SetupPerceptionSystem()
 {
+	//GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, TEXT("test"));
 
 	SetPerceptionComponent(*CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception Component")));
 
