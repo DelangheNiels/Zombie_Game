@@ -26,6 +26,8 @@ AFirstPersonCharacter::AFirstPersonCharacter()
 	m_pStimulusComponent = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>(TEXT("Perception Stimulus Source Component"));
 	m_pStimulusComponent->RegisterForSense(TSubclassOf<UAISense_Sight>());
 	m_pStimulusComponent->RegisterWithPerceptionSystem();
+
+	m_Intensity = 0;
 }
 
 void AFirstPersonCharacter::BeginPlay()
@@ -90,6 +92,17 @@ bool AFirstPersonCharacter::GetIsReloading() const
 void AFirstPersonCharacter::SetIsReloading(bool isReloading)
 {
 	m_IsReloading = isReloading;
+}
+
+float AFirstPersonCharacter::GetIntensity() const
+{
+	return m_Intensity;
+}
+
+void AFirstPersonCharacter::AddIntensity(float intensity)
+{
+	m_Intensity += intensity;
+	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, FString::Printf(TEXT("%f"),m_Intensity));
 }
 
 ABasicGun& AFirstPersonCharacter::GetEquipedGun() const

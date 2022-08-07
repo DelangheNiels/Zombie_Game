@@ -41,6 +41,9 @@ public:
 
 	void SetIsReloading(bool isReloading);
 
+	float GetIntensity() const;
+	void AddIntensity(float intensity);
+
 	class ABasicGun& GetEquipedGun() const;
 
 	class UCameraComponent& GetCamera() const;
@@ -65,4 +68,6 @@ private:
 
 	UPROPERTY()
 	AFirstPersonCharacterController* m_pController;
+
+	float m_Intensity;
 };

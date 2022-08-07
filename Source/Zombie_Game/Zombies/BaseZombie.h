@@ -11,6 +11,7 @@
  */
 
 class UBoxComponent;
+class AFirstPersonCharacter;
 
 UCLASS()
 class ZOMBIE_GAME_API ABaseZombie : public ABaseCharacter
@@ -40,7 +41,12 @@ protected:
 	UPROPERTY()
 		UBoxComponent* m_pRightHandCollision;
 
+	UPROPERTY()
+		AFirstPersonCharacter* m_pPlayer;
+
 	virtual void BeginPlay() override;
+
+	virtual void TookDamage(float damage) override;
 
 public:
 
@@ -63,6 +69,18 @@ public:
 		void StopAttacking();
 
 private:
+
+	UPROPERTY(EditAnywhere, Category = "Zombie params")
+		float m_CloseByRange;
+
+	UPROPERTY(EditAnywhere, Category = "Zombie params")
+		float m_IntensityWhenKilledFromFarRange;
+
+	UPROPERTY(EditAnywhere, Category = "Zombie params")
+		float m_IntensityWhenKilledFromCloseRange;
+
+	UPROPERTY(EditAnywhere, Category = "Zombie params")
+		float m_IntensityWhenHittingPlayer;
 
 	void SetRightHandCollision();
 

@@ -66,7 +66,9 @@ void ABasicBullet::OnOverlapBegin(UPrimitiveComponent* overlappedComponent, AAct
 {
 	if (ABaseZombie* zombie = Cast<ABaseZombie>(otherActor))
 	{
-		zombie->Damage(m_Damage);
+		if(zombie->GetCurrentHealth()>0)
+			zombie->Damage(m_Damage);
+
 		Destroy();
 	}
 
