@@ -6,6 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "DirectorAI.generated.h"
 
+class AFirstPersonCharacter;
+class AZone;
+class DirectorAIState;
+
 UCLASS()
 class ZOMBIE_GAME_API ADirectorAI : public AActor
 {
@@ -23,4 +27,16 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	void TransitionTo(DirectorAIState* pState);
+
+private:
+
+	UPROPERTY()
+		AFirstPersonCharacter* m_pPlayer;
+
+	TArray<AActor*> m_Zones;
+
+	DirectorAIState* m_pCurrentState;
+
+	float m_TransitionTimer = 0;
 };
