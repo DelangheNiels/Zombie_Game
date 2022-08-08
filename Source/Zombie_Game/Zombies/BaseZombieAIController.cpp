@@ -74,11 +74,16 @@ void ABaseZombieAIController::SetupSightPerceptionParameters()
 
 void ABaseZombieAIController::OnFPCharDetected(AActor* actor, FAIStimulus stimulus)
 {
-	if (AFirstPersonCharacter* player = Cast<AFirstPersonCharacter>(actor))
+	AFirstPersonCharacter* player = Cast<AFirstPersonCharacter>(actor);
+
+	ABaseZombie* pawn = Cast<ABaseZombie>(GetPawn());
+
+	if (player)
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Blue, TEXT("Has seen player"));
 		m_pBlackboardComponent->SetValueAsBool(blackboardKeys::canSeePlayer, stimulus.WasSuccessfullySensed());
 
-		if (auto pawn = Cast<ABaseZombie>(GetPawn()))
+		if (pawn)
 		{
 			pawn->HasSeenPlayer(stimulus.WasSuccessfullySensed());
 		}
@@ -100,19 +105,12 @@ void ABaseZombieAIController::OnSoundSenseUpdate(const TArray<AActor*>& actors)
 				GetBlackboardComponent()->SetValueAsBool(blackboardKeys::heardSound, true);
 				GetBlackboardComponent()->SetValueAsVector(blackboardKeys::targetLocation, stimulus.StimulusLocation);
 			}
-
-			else
-			{
-				GetBlackboardComponent()->SetValueAsBool(blackboardKeys::canSeePlayer, stimulus.WasSuccessfullySensed());
-				
-			}
 		}
 	}
 }
 
 void ABaseZombieAIController::SetupPerceptionSystem()
 {
-	//GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, TEXT("test"));
 
 	SetPerceptionComponent(*CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception Component")));
 

@@ -12,6 +12,7 @@
 
 class UBoxComponent;
 class AFirstPersonCharacter;
+class ADirectorAI;
 
 UCLASS()
 class ZOMBIE_GAME_API ABaseZombie : public ABaseCharacter
@@ -81,6 +82,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Zombie params")
 		float m_IntensityWhenHittingPlayer;
+
+	UPROPERTY()
+	ADirectorAI* m_pDirectorAI;
 
 	void SetRightHandCollision();
 

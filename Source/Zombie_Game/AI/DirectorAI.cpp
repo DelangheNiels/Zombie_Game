@@ -20,6 +20,7 @@ ADirectorAI::ADirectorAI()
 {
  	
 	PrimaryActorTick.bCanEverTick = true;
+	m_NrEnemiesAllive = 0;
 
 }
 
@@ -77,6 +78,11 @@ float ADirectorAI::GetIntenstyToEnterPeak() const
 	return m_IntensityToEnterPeak;
 }
 
+float ADirectorAI::GetTimeToSpawnEnemies() const
+{
+	return m_TimeToSpawnEnemies;
+}
+
 float ADirectorAI::GetPeakSpawnMultiplier() const
 {
 	return m_PeakSpawnMultiplier;
@@ -87,14 +93,48 @@ float ADirectorAI::GetRelaxTime() const
 	return m_RelaxTime;
 }
 
-void ADirectorAI::IncreaseAmountOfEnemies()
+void ADirectorAI::IncreaseAmountOfEnemiesToSpawn()
 {
 	m_MaxEnemiesAlliveInLevel += (m_MaxEnemiesAlliveInLevel * (m_DifficultyMultiplier - 1));
 }
 
-void ADirectorAI::DecreaseAmountOfEnemies()
+void ADirectorAI::DecreaseAmountOfEnemiesToSpawn()
 {
 	m_MaxEnemiesAlliveInLevel -= (m_MaxEnemiesAlliveInLevel * (m_DifficultyMultiplier-1));
+}
+
+void ADirectorAI::IncreaseEnemiesAllive()
+{
+	++m_NrEnemiesAllive;
+	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, FString::Printf(TEXT("%i"), m_NrEnemiesAllive));
+}
+
+void ADirectorAI::DecreaseEnemiesAllive()
+{
+	--m_NrEnemiesAllive;
+	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, FString::Printf(TEXT("%i"), m_NrEnemiesAllive));
+}
+
+int ADirectorAI::GetNrEnemiesAllive() const
+{
+	return m_NrEnemiesAllive;
+}
+
+AZone* ADirectorAI::GetActiveZone() const
+{
+	AZone* activeZone = nullptr;
+
+	for (size_t i = 0; i < m_Zones.Num(); i++)
+	{
+		AZone* zone = Cast<AZone>(m_Zones[i]);
+		if (zone->GetIsPlayerInZone())
+		{
+			activeZone = zone;
+			return zone;
+		}
+	}
+
+	return nullptr;
 }
 
 AFirstPersonCharacter* ADirectorAI::GetPlayer() const

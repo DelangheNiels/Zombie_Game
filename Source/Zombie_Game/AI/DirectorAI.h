@@ -33,11 +33,19 @@ public:
 	float GetMaxEnemiesAlliveInLevel() const;
 	float GetIntensityToChangeDifficulty() const;
 	float GetIntenstyToEnterPeak() const;
+	float GetTimeToSpawnEnemies() const;
 	float GetPeakSpawnMultiplier() const;
 	float GetRelaxTime() const;
 
-	void IncreaseAmountOfEnemies();
-	void DecreaseAmountOfEnemies();
+	void IncreaseAmountOfEnemiesToSpawn();
+	void DecreaseAmountOfEnemiesToSpawn();
+
+	void IncreaseEnemiesAllive();
+	void DecreaseEnemiesAllive();
+
+	int GetNrEnemiesAllive() const;
+
+	AZone* GetActiveZone() const;
 
 	AFirstPersonCharacter* GetPlayer() const;
 
@@ -51,12 +59,14 @@ private:
 
 	DirectorAIState* m_pCurrentState;
 
+	int m_NrEnemiesAllive;
+
 	//Variables in DirectorAI actor so that I can change the values in the editor and don't need to compile 
 	UPROPERTY(EditAnywhere)
 		float m_ChangeDifficultyTime = 20;
 
 	UPROPERTY(EditAnywhere)
-		float m_MaxEnemiesAlliveInLevel = 20;
+		int m_MaxEnemiesAlliveInLevel = 20;
 
 	UPROPERTY(EditAnywhere)
 		float m_DifficultyMultiplier = 1.2f;
@@ -66,6 +76,9 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		float m_IntensityToEnterPeak = 1.0f;
+
+	UPROPERTY(EditAnywhere)
+		float m_TimeToSpawnEnemies = 5.0f;
 
 	UPROPERTY(EditAnywhere)
 		float m_PeakSpawnMultiplier = 1.5f;

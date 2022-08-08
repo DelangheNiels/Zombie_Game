@@ -8,6 +8,8 @@
 
 #include "../FirstPersonCharacter.h"
 
+#include "../AI/DirectorAI.h"
+
 #include "Components/SphereComponent.h"
 #include "Components/BoxComponent.h"
 
@@ -32,6 +34,7 @@ void ABaseZombie::BeginPlay()
 	GetCharacterMovement()->MaxWalkSpeed = m_CurrentMovementSpeed;
 
 	m_pPlayer = Cast<AFirstPersonCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
+	m_pDirectorAI = Cast<ADirectorAI>(UGameplayStatics::GetActorOfClass(GetWorld(), ADirectorAI::StaticClass()));
 }
 
 void ABaseZombie::TookDamage(float damage)
@@ -43,6 +46,7 @@ void ABaseZombie::TookDamage(float damage)
 		GetCharacterMovement()->MaxWalkSpeed = 0;
 		ABaseZombieAIController* controller = Cast<ABaseZombieAIController>(GetController());
 		controller->StopBehavior();
+		SetActorEnableCollision(false);
 
 		if (this->GetDistanceTo(m_pPlayer) <= m_CloseByRange)
 		{
@@ -53,6 +57,8 @@ void ABaseZombie::TookDamage(float damage)
 		{
 			m_pPlayer->AddIntensity(m_IntensityWhenKilledFromFarRange);
 		}
+
+		m_pDirectorAI->DecreaseEnemiesAllive();
 	}
 }
 

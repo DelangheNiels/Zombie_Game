@@ -25,6 +25,10 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	bool GetIsPlayerInZone() const;
+
+	TArray<AActor*> GetSpawners() const;
+
 private:
 
 	float m_WaitTimer;
@@ -34,7 +38,7 @@ private:
 	bool m_GotSpawners;
 
 	UPROPERTY()
-		TArray<AActor*> m_pSpawnersInZone;
+		TArray<AActor*> m_SpawnersInZone;
 
 	UPROPERTY()
 		UBoxComponent* m_pCollisionBox;

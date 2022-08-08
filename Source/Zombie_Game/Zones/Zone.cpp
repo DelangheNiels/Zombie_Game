@@ -41,7 +41,7 @@ void AZone::Tick(float DeltaTime)
 		m_WaitTime += DeltaTime;
 		if (m_WaitTime >= m_WaitTimer)
 		{
-			m_pCollisionBox->GetOverlappingActors(m_pSpawnersInZone, ASpawner::StaticClass());
+			m_pCollisionBox->GetOverlappingActors(m_SpawnersInZone, ASpawner::StaticClass());
 			m_GotSpawners = true;
 		}
 	}
@@ -49,6 +49,17 @@ void AZone::Tick(float DeltaTime)
 	
 
 }
+
+bool AZone::GetIsPlayerInZone() const
+{
+	return m_IsPlayerInZone;
+}
+
+TArray<AActor*> AZone::GetSpawners() const
+{
+	return m_SpawnersInZone;
+}
+
 
 void AZone::OnBeginOverlap(UPrimitiveComponent* overlappedComponent, AActor* otherActor, UPrimitiveComponent* otherComp, int32 otherBodyIndex, bool bFromSweep, const FHitResult& sweepResult)
 {
