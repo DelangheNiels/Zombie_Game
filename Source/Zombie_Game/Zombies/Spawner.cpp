@@ -16,8 +16,6 @@ ASpawner::ASpawner()
 void ASpawner::BeginPlay()
 {
 	Super::BeginPlay();
-
-	Spawn();
 	
 }
 

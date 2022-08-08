@@ -29,6 +29,17 @@ public:
 
 	void TransitionTo(DirectorAIState* pState);
 
+	float GetChangeDifficultyTime() const;
+	float GetMaxEnemiesAlliveInLevel() const;
+	float GetIntensityToChangeDifficulty() const;
+	float GetIntenstyToEnterPeak() const;
+
+	void IncreaseAmountOfEnemies();
+	void DecreaseAmountOfEnemies();
+
+	AFirstPersonCharacter* GetPlayer() const;
+
+
 private:
 
 	UPROPERTY()
@@ -38,5 +49,20 @@ private:
 
 	DirectorAIState* m_pCurrentState;
 
-	float m_TransitionTimer = 0;
+	//Variables in DirectorAI actor so that I can change the values in the editor and don't need to compile 
+	UPROPERTY(EditAnywhere)
+		float m_ChangeDifficultyTime = 20;
+
+	UPROPERTY(EditAnywhere)
+		float m_MaxEnemiesAlliveInLevel = 20;
+
+	UPROPERTY(EditAnywhere)
+		float m_DifficultyMultiplier = 1.2f;
+
+	UPROPERTY(EditAnywhere)
+		float m_IntensityToChangeDifficulty = 0.25f;
+
+	UPROPERTY(EditAnywhere)
+		float m_IntensityToEnterPeak = 1.0f;
+
 };

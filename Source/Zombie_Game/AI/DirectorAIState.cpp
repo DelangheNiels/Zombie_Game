@@ -4,6 +4,9 @@
 #include "DirectorAIState.h"
 #include "DirectorAI.h"
 
+#include "../FirstPersonCharacter.h"
+
+
 DirectorAIState::DirectorAIState()
 {
 }

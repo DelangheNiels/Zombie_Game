@@ -3,7 +3,10 @@
 
 #include "Relax.h"
 
+#include "../FirstPersonCharacter.h"
+
 Relax::Relax()
+	:DirectorAIState()
 {
 }
 
@@ -11,7 +14,11 @@ Relax::~Relax()
 {
 }
 
-void Relax::HandleEnemySpawns()
+void Relax::HandleEnemySpawns(float deltaTime)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Blue, TEXT("In Relax"));
+}
+
+void Relax::HandleStateChange(float deltaTime)
+{
 }

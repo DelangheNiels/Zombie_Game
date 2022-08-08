@@ -19,9 +19,18 @@ public:
 	BuildUp& operator=(const BuildUp& other) = delete;
 	BuildUp& operator=(BuildUp&& other) = delete;
 
-	virtual void HandleEnemySpawns() override;
+	virtual void HandleEnemySpawns(float deltaTime) override;
+	virtual void HandleStateChange(float deltaTime) override;
 
 protected:
+
+private:
+
+	float m_ChangeDifficultyTimer;
+
+	float m_OldPlayerIntensity;
+
+	
 
 	
 };

@@ -18,7 +18,8 @@ public:
 	Peak& operator=(const Peak& other) = delete;
 	Peak& operator=(Peak&& other) = delete;
 
-	virtual void HandleEnemySpawns() override;
+	virtual void HandleEnemySpawns(float DeltaTime) override;
+	virtual void HandleStateChange(float deltaTime) override;
 
 protected:
 

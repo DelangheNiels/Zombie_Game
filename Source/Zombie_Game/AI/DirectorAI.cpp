@@ -20,7 +20,6 @@ ADirectorAI::ADirectorAI()
 {
  	
 	PrimaryActorTick.bCanEverTick = true;
-	m_pCurrentState = new BuildUp();
 
 }
 
@@ -31,22 +30,21 @@ void ADirectorAI::BeginPlay()
 	m_pPlayer = Cast<AFirstPersonCharacter>(UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AZone::StaticClass(), m_Zones);
 
-	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, FString::Printf(TEXT("%i"), m_Zones.Num()));
+	m_pCurrentState = new BuildUp();
+	m_pCurrentState->SetDirectorAI(this);
+
 }
 
-void ADirectorAI::Tick(float DeltaTime)
+void ADirectorAI::Tick(float deltaTime)
 {
-	Super::Tick(DeltaTime);
+	Super::Tick(deltaTime);
 
-	m_pCurrentState->HandleEnemySpawns();
-
-	m_TransitionTimer += DeltaTime;
-	if (m_TransitionTimer >= 5)
+	if (m_pCurrentState)
 	{
-		m_TransitionTimer = 0;
-		
-		TransitionTo(new Peak());
+		m_pCurrentState->HandleEnemySpawns(deltaTime);
+		m_pCurrentState->HandleStateChange(deltaTime);
 	}
+	
 
 }
 
@@ -57,5 +55,40 @@ void ADirectorAI::TransitionTo(DirectorAIState* pState)
 
 	m_pCurrentState = pState;
 	m_pCurrentState->SetDirectorAI(this);
+}
+
+float ADirectorAI::GetChangeDifficultyTime() const
+{
+	return m_ChangeDifficultyTime;
+}
+
+float ADirectorAI::GetMaxEnemiesAlliveInLevel() const
+{
+	return m_MaxEnemiesAlliveInLevel;
+}
+
+float ADirectorAI::GetIntensityToChangeDifficulty() const
+{
+	return m_IntensityToChangeDifficulty;
+}
+
+float ADirectorAI::GetIntenstyToEnterPeak() const
+{
+	return m_IntensityToEnterPeak;
+}
+
+void ADirectorAI::IncreaseAmountOfEnemies()
+{
+	m_MaxEnemiesAlliveInLevel += (m_MaxEnemiesAlliveInLevel * (m_DifficultyMultiplier - 1));
+}
+
+void ADirectorAI::DecreaseAmountOfEnemies()
+{
+	m_MaxEnemiesAlliveInLevel -= (m_MaxEnemiesAlliveInLevel * (m_DifficultyMultiplier-1));
+}
+
+AFirstPersonCharacter* ADirectorAI::GetPlayer() const
+{
+	return m_pPlayer;
 }
 

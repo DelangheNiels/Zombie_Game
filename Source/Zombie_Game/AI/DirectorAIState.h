@@ -23,7 +23,8 @@ public:
 
 	void SetDirectorAI(ADirectorAI* pDirectorAI);
 
-	virtual void HandleEnemySpawns() = 0;
+	virtual void HandleEnemySpawns(float deltaTime) = 0;
+	virtual void HandleStateChange(float deltaTime) = 0;
 
 protected:
 
