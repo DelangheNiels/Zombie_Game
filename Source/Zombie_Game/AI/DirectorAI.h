@@ -33,6 +33,8 @@ public:
 	float GetMaxEnemiesAlliveInLevel() const;
 	float GetIntensityToChangeDifficulty() const;
 	float GetIntenstyToEnterPeak() const;
+	float GetPeakSpawnMultiplier() const;
+	float GetRelaxTime() const;
 
 	void IncreaseAmountOfEnemies();
 	void DecreaseAmountOfEnemies();
@@ -64,5 +66,11 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		float m_IntensityToEnterPeak = 1.0f;
+
+	UPROPERTY(EditAnywhere)
+		float m_PeakSpawnMultiplier = 1.5f;
+
+	UPROPERTY(EditAnywhere)
+		float m_RelaxTime = 20.0f;
 
 };

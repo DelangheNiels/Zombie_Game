@@ -23,4 +23,7 @@ public:
 
 protected:
 
+private:
+	float m_RelaxTimer;
+
 };

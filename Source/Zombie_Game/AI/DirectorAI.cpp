@@ -77,6 +77,16 @@ float ADirectorAI::GetIntenstyToEnterPeak() const
 	return m_IntensityToEnterPeak;
 }
 
+float ADirectorAI::GetPeakSpawnMultiplier() const
+{
+	return m_PeakSpawnMultiplier;
+}
+
+float ADirectorAI::GetRelaxTime() const
+{
+	return m_RelaxTime;
+}
+
 void ADirectorAI::IncreaseAmountOfEnemies()
 {
 	m_MaxEnemiesAlliveInLevel += (m_MaxEnemiesAlliveInLevel * (m_DifficultyMultiplier - 1));

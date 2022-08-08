@@ -2,12 +2,15 @@
 
 
 #include "Relax.h"
+#include "BuildUp.h"
+#include "DirectorAI.h"
 
 #include "../FirstPersonCharacter.h"
 
 Relax::Relax()
 	:DirectorAIState()
 {
+	m_RelaxTimer = 0;
 }
 
 Relax::~Relax()
@@ -16,9 +19,16 @@ Relax::~Relax()
 
 void Relax::HandleEnemySpawns(float deltaTime)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Blue, TEXT("In Relax"));
+	//No enemies spawn during relax state
 }
 
 void Relax::HandleStateChange(float deltaTime)
 {
+	if (m_pDirectorAI)
+	{
+		if (m_RelaxTimer >= m_pDirectorAI->GetRelaxTime())
+		{
+			m_pDirectorAI->TransitionTo(new BuildUp());
+		}
+	}
 }

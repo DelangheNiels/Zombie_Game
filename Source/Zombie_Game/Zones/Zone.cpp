@@ -42,7 +42,6 @@ void AZone::Tick(float DeltaTime)
 		if (m_WaitTime >= m_WaitTimer)
 		{
 			m_pCollisionBox->GetOverlappingActors(m_pSpawnersInZone, ASpawner::StaticClass());
-			GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, FString::Printf(TEXT("amount of spawners in zone: %i"), m_pSpawnersInZone.Num()));
 			m_GotSpawners = true;
 		}
 	}
