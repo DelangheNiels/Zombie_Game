@@ -23,4 +23,7 @@ public:
 
 protected:
 
+private:
+
+	bool m_HasSpawnedEnemies;
 };

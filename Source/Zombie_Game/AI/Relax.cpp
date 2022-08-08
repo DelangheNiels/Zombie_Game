@@ -26,9 +26,11 @@ void Relax::HandleStateChange(float deltaTime)
 {
 	if (m_pDirectorAI)
 	{
+		m_RelaxTimer += deltaTime;
 		if (m_RelaxTimer >= m_pDirectorAI->GetRelaxTime())
 		{
 			m_pDirectorAI->TransitionTo(new BuildUp());
+			m_pDirectorAI->GetPlayer()->ResetIntensity();
 		}
 	}
 }
