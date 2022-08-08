@@ -65,6 +65,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Sight Perception")
 		float m_SightSuccessRange;
 
+	UPROPERTY(EditAnywhere, Category = "Hear Perception")
+		float m_HearRange;
+
 	void SetupSightPerceptionParameters();
 
 	UFUNCTION()

@@ -68,7 +68,7 @@ void ABaseZombieAIController::SetupSightPerceptionParameters()
 	m_pSightConfig->SetMaxAge(m_MaxAge);
 	m_pSightConfig->AutoSuccessRangeFromLastSeenLocation = m_SightSuccessRange;
 
-	//m_pHearingConfig->HearingRange = 3000;
+	m_pHearingConfig->HearingRange = 3000;
 	
 }
 
