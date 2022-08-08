@@ -30,6 +30,11 @@ private:
 
 	float m_OldPlayerIntensity;
 
+	float m_TimeToSpawnEnemiesTimer;
+
+	void SpawnEnemies(float deltaTime);
+	void ChangeDifficulty(float deltaTime);
+
 	
 
 	

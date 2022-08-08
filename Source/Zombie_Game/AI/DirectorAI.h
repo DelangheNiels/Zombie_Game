@@ -40,9 +40,6 @@ public:
 	void IncreaseAmountOfEnemiesToSpawn();
 	void DecreaseAmountOfEnemiesToSpawn();
 
-	void IncreaseEnemiesAllive();
-	void DecreaseEnemiesAllive();
-
 	int GetNrEnemiesAllive() const;
 
 	AZone* GetActiveZone() const;

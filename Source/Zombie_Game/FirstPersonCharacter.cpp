@@ -102,7 +102,6 @@ float AFirstPersonCharacter::GetIntensity() const
 void AFirstPersonCharacter::AddIntensity(float intensity)
 {
 	m_Intensity += intensity;
-	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, FString::Printf(TEXT("%f"),m_Intensity));
 }
 
 ABasicGun& AFirstPersonCharacter::GetEquipedGun() const
@@ -113,4 +112,9 @@ ABasicGun& AFirstPersonCharacter::GetEquipedGun() const
 UCameraComponent& AFirstPersonCharacter::GetCamera() const
 {
 	return *m_pCamera;
+}
+
+void AFirstPersonCharacter::ResetIntensity()
+{
+	m_Intensity = 0;
 }

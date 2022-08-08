@@ -48,6 +48,8 @@ public:
 
 	class UCameraComponent& GetCamera() const;
 
+	void ResetIntensity();
+
 private:
 
 	UPROPERTY(VisibleAnywhere)

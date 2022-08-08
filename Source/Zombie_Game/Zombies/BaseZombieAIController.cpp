@@ -80,7 +80,6 @@ void ABaseZombieAIController::OnFPCharDetected(AActor* actor, FAIStimulus stimul
 
 	if (player)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Blue, TEXT("Has seen player"));
 		m_pBlackboardComponent->SetValueAsBool(blackboardKeys::canSeePlayer, stimulus.WasSuccessfullySensed());
 
 		if (pawn)

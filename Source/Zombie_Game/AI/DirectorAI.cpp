@@ -6,6 +6,7 @@
 #include "../FirstPersonCharacter.h"
 #include "../Zones/Zone.h"
 #include "../Zombies/Spawner.h"
+#include "../Zombies/BaseZombie.h"
 
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
@@ -96,28 +97,21 @@ float ADirectorAI::GetRelaxTime() const
 void ADirectorAI::IncreaseAmountOfEnemiesToSpawn()
 {
 	m_MaxEnemiesAlliveInLevel += (m_MaxEnemiesAlliveInLevel * (m_DifficultyMultiplier - 1));
+	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Blue, FString::Printf(TEXT("%i"), m_MaxEnemiesAlliveInLevel));
 }
 
 void ADirectorAI::DecreaseAmountOfEnemiesToSpawn()
 {
 	m_MaxEnemiesAlliveInLevel -= (m_MaxEnemiesAlliveInLevel * (m_DifficultyMultiplier-1));
-}
+	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, FString::Printf(TEXT("%i"), m_MaxEnemiesAlliveInLevel));
 
-void ADirectorAI::IncreaseEnemiesAllive()
-{
-	++m_NrEnemiesAllive;
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, FString::Printf(TEXT("%i"), m_NrEnemiesAllive));
-}
-
-void ADirectorAI::DecreaseEnemiesAllive()
-{
-	--m_NrEnemiesAllive;
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Red, FString::Printf(TEXT("%i"), m_NrEnemiesAllive));
 }
 
 int ADirectorAI::GetNrEnemiesAllive() const
 {
-	return m_NrEnemiesAllive;
+	TArray<AActor*> foundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABaseZombie::StaticClass(), foundActors);
+	return foundActors.Num();
 }
 
 AZone* ADirectorAI::GetActiveZone() const

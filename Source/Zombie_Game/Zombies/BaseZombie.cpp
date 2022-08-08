@@ -57,8 +57,6 @@ void ABaseZombie::TookDamage(float damage)
 		{
 			m_pPlayer->AddIntensity(m_IntensityWhenKilledFromFarRange);
 		}
-
-		m_pDirectorAI->DecreaseEnemiesAllive();
 	}
 }
 
