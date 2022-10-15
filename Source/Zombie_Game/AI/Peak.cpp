@@ -24,11 +24,11 @@ void Peak::HandleEnemySpawns(float)
 {
 	if (m_pDirectorAI && !m_HasSpawnedEnemies)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, TEXT("In Peak"));
+		
 		AZone* zone = m_pDirectorAI->GetActiveZone();
 
 		int nrEnemiesToSpawn = m_pDirectorAI->GetMaxEnemiesAlliveInLevel() * m_pDirectorAI->GetPeakSpawnMultiplier();
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, FString::Printf(TEXT("%i"), nrEnemiesToSpawn));
+		
 
 		if (zone)
 		{
@@ -49,8 +49,13 @@ void Peak::HandleStateChange(float)
 {
 	if (m_pDirectorAI->GetNrEnemiesAllive() <= 0)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, TEXT("To Relax"));
+		
 		m_pDirectorAI->TransitionTo(new Relax());
 	}
 		
+}
+
+FString Peak::GetStateName() const
+{
+	return "Peak";
 }

@@ -66,7 +66,7 @@ void AZone::OnBeginOverlap(UPrimitiveComponent* overlappedComponent, AActor* oth
 	if (otherActor->IsA<AFirstPersonCharacter>())
 	{
 		m_IsPlayerInZone = true;
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, TEXT("Player entered zone"));
+		
 	}
 	
 }
@@ -77,7 +77,7 @@ void AZone::OnEndOverlap(UPrimitiveComponent* overlappedComp, AActor* otherActor
 	if (otherActor->IsA<AFirstPersonCharacter>())
 	{
 		m_IsPlayerInZone = false;
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, TEXT("Player left zone"));
+		
 	}
 	
 }

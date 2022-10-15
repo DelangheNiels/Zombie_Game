@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "DirectorAIState.h"
+
 /**
  * 
  */
@@ -20,6 +21,7 @@ public:
 
 	virtual void HandleEnemySpawns(float DeltaTime) override;
 	virtual void HandleStateChange(float deltaTime) override;
+	virtual FString GetStateName() const override;
 
 protected:
 

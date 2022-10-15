@@ -40,10 +40,15 @@ void BuildUp::HandleStateChange(float)
 		if (m_pDirectorAI->GetPlayer()->GetIntensity() >= m_pDirectorAI->GetIntenstyToEnterPeak())
 		{
 			m_pDirectorAI->TransitionTo(new Peak());
-			GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, TEXT("To Peak"));
+			
 		}
 	}
 	
+}
+
+FString BuildUp::GetStateName() const
+{
+	return "Build Up";
 }
 
 void BuildUp::SpawnEnemies(float deltaTime)
@@ -57,7 +62,7 @@ void BuildUp::SpawnEnemies(float deltaTime)
 	{
 		if (zone && nrEnemiesToSpawn > 0)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, FString::Printf(TEXT("%i"), nrEnemiesToSpawn));
+			
 			for (size_t i = 0; i < nrEnemiesToSpawn; i++)
 			{
 				int spawnerNr = FMath::RandRange(0, zone->GetSpawners().Num() - 1);

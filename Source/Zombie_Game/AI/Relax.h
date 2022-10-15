@@ -20,6 +20,7 @@ public:
 
 	virtual void HandleEnemySpawns(float deltaTime) override;
 	virtual void HandleStateChange(float deltaTime) override;
+	virtual FString GetStateName() const override;
 
 protected:
 

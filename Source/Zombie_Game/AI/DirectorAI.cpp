@@ -97,13 +97,13 @@ float ADirectorAI::GetRelaxTime() const
 void ADirectorAI::IncreaseAmountOfEnemiesToSpawn()
 {
 	m_MaxEnemiesAlliveInLevel += (m_MaxEnemiesAlliveInLevel * (m_DifficultyMultiplier - 1));
-	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Blue, FString::Printf(TEXT("%i"), m_MaxEnemiesAlliveInLevel));
+	
 }
 
 void ADirectorAI::DecreaseAmountOfEnemiesToSpawn()
 {
 	m_MaxEnemiesAlliveInLevel -= (m_MaxEnemiesAlliveInLevel * (m_DifficultyMultiplier-1));
-	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, FString::Printf(TEXT("%i"), m_MaxEnemiesAlliveInLevel));
+	
 
 }
 
@@ -134,5 +134,10 @@ AZone* ADirectorAI::GetActiveZone() const
 AFirstPersonCharacter* ADirectorAI::GetPlayer() const
 {
 	return m_pPlayer;
+}
+
+FString ADirectorAI::GetCurrentState() const
+{
+	return m_pCurrentState->GetStateName();
 }
 

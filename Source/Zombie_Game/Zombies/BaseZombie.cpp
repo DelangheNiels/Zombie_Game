@@ -86,7 +86,7 @@ void ABaseZombie::PlayAttackMontage()
 	{
 		GetCharacterMovement()->MaxWalkSpeed = 0;
 		m_IsAttacking = true;
-		//GetMesh()->PlayAnimation(m_pAttackMontage, false);
+		
 	}
 	
 }
@@ -127,7 +127,6 @@ void ABaseZombie::OnRightHandOverlapBegin(UPrimitiveComponent* overlappedCompone
 	//AFirstPersonCharacter* player = Cast<AFirstPersonCharacter>(otherActor);
 	if (m_pPlayer == otherActor && m_IsAttacking)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, TEXT("Dealing damage"));
 		m_pPlayer->Damage(m_Damage);
 		m_pPlayer->AddIntensity(m_IntensityWhenHittingPlayer);
 	}

@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include <string>
 #include "DirectorAI.generated.h"
+
 
 class AFirstPersonCharacter;
 class AZone;
@@ -40,12 +42,15 @@ public:
 	void IncreaseAmountOfEnemiesToSpawn();
 	void DecreaseAmountOfEnemiesToSpawn();
 
+	UFUNCTION(BlueprintCallable)
 	int GetNrEnemiesAllive() const;
 
 	AZone* GetActiveZone() const;
 
 	AFirstPersonCharacter* GetPlayer() const;
 
+	UFUNCTION(BlueprintCallable)
+		FString GetCurrentState() const;
 
 private:
 

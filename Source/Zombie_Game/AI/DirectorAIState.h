@@ -25,6 +25,7 @@ public:
 
 	virtual void HandleEnemySpawns(float deltaTime) = 0;
 	virtual void HandleStateChange(float deltaTime) = 0;
+	virtual FString GetStateName() const = 0;
 
 protected:
 

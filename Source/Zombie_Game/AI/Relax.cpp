@@ -34,3 +34,8 @@ void Relax::HandleStateChange(float deltaTime)
 		}
 	}
 }
+
+FString Relax::GetStateName() const
+{
+	return "Relax";
+}

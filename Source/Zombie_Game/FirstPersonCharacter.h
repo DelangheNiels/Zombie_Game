@@ -41,7 +41,9 @@ public:
 
 	void SetIsReloading(bool isReloading);
 
-	float GetIntensity() const;
+	UFUNCTION(BlueprintCallable)
+		float GetIntensity() const;
+
 	void AddIntensity(float intensity);
 
 	class ABasicGun& GetEquipedGun() const;
